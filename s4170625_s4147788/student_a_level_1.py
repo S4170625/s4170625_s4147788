@@ -125,8 +125,9 @@ def get_page_html(form_data):
         <div class="personas-grid">
             <div class="persona">
                 <img src="images/persona1.png" alt="Persona 1">
-                <h3>Persona 1</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dictum, ipsum at eleifend tristique.</p>
+                <h3>Marge Smith (73)</h3>
+                <p>Marge is a retireed teacher who lives in regional victoria, she has limited technological ability. She reqires a website to be able to track both weather and climate data 
+                </p>
             </div>
             <div class="persona">
                 <img src="images/persona2.png" alt="Persona 2">
