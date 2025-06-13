@@ -1,32 +1,169 @@
-import pyhtml
-def get_page_html(form_data):
-    print("About to return page 2")
-    
-    page_html=f"""<!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <title>Reading from a .db file</title>
-    </head>
-    <body>
-        <h1>Page 2B - Example of retrieving data from a .db file...</h1>
-    """
-    sql_query = "select * from movie;"
-    page_html+= f"<h2>Result from \"{sql_query}\"</h2>"
-    
-    #Run the query in sql_query and get the results
-    results = pyhtml.get_results_from_query("database/movies.db",sql_query)
-    
-    #Adding results to the web page without any beautification. Try turning it into a nice table!
-    for row in results:
-        page_html+="<p>"+str(row)+"</p>\n"
-    page_html+="""
-        <p><a href="/">Go to Page 1A</a></p>
-        <p><a href="/page2a">Go to Page 2A</a></p>
-        <p><a href="/page3a">Go to Page 3A</a></p>
-        <p><a href="/page1b">Go to Page 1B</a></p>
-        <p><a href="/page2b">Go to Page 2B</a></p>
-        <p><a href="/page3b">Go to Page 3B</a></p>
-    </body>
-    </html>
-    """
-    return page_html
+def write_webpage_with_navigation():
+    html_content = """<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Climate & Mission Webpage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        header {
+            background-color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ccc;
+        }
+        .logo {
+            font-weight: bold;
+            font-size: 1.5em;
+        }
+        nav a {
+            margin-left: 10px;
+            padding: 6px 12px;
+            border: 1px solid #000;
+            text-decoration: none;
+            color: black;
+            border-radius: 4px;
+            background: white;
+        }
+        nav a:hover {
+            background-color: #003366;
+            color: white;
+        }
+        h2 {
+            margin-top: 30px;
+            font-size: 28px;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        .persona-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .persona {
+            width: 200px;
+        }
+        .search-box {
+            border: 1px solid black;
+            width: 70%;
+            margin: 20px auto;
+            padding: 20px;
+            text-align: left;
+        }
+        .search-box input {
+            margin: 8px;
+            padding: 6px;
+            width: 220px;
+        }
+        .search-box button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        table {
+            width: 80%;
+            margin: 30px auto;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+        .overall-section {
+            margin-top: 40px;
+        }
+        .overall-section p {
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Logo</div>
+        <nav>
+            <a href="#mission">Mission Statement</a>
+            <a href="#">Weather</a>
+            <a href="#climate">Climate</a>
+        </nav>
+    </header>
+
+    <section id="mission">
+        <h2>Mission Statement</h2>
+        <p>This is an example of the mission statement that we will place here later on in our website design, which we will use to help others that may require the usage of our website. Here are some people who have been benefitted from the usage of our webpage.</p>
+        
+        <div class="persona-container">
+            <div class="persona">
+                <img src="#" alt="Persona 1" width="100%" height="150px" style="background-color:#ccc;">
+                <p>Persona 1 description goes here.</p>
+            </div>
+            <div class="persona">
+                <img src="#" alt="Persona 2" width="100%" height="150px" style="background-color:#ccc;">
+                <p>Persona 2 description goes here.</p>
+            </div>
+            <div class="persona">
+                <img src="#" alt="Persona 3" width="100%" height="150px" style="background-color:#ccc;">
+                <p>Persona 3 description goes here.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="climate">
+        <h2>Climate Statistics</h2>
+        <div class="search-box">
+            <form>
+                <input type="text" placeholder="Select Metric (with unit)">
+                <input type="text" placeholder="Start Date (DD/MM/YYYY)">
+                <span>———</span>
+                <input type="text" placeholder="End Date (DD/MM/YYYY)">
+                <br>
+                <input type="text" placeholder="Station ID (Linked with state)">
+                <br>
+                <button type="submit">Start Search</button>
+            </form>
+        </div>
+
+        <table>
+            <tr>
+                <th>Station ID</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Metric (Unit)</th>
+            </tr>
+        </table>
+
+        <div class="overall-section">
+            <p>Would you like the overall statistics for your inputted values?</p>
+        </div>
+
+        <table>
+            <tr>
+                <th>State</th>
+                <th>Total metric (Unit)</th>
+            </tr>
+        </table>
+    </section>
+
+</body>
+</html>
+"""
+
+    with open("linked_sections_webpage.html", "w", encoding="utf-8") as f:
+        f.write(html_content)
+
+    print("✅ Webpage with navigation links saved as 'linked_sections_webpage.html'")
+
+write_webpage_with_navigation()
