@@ -8,7 +8,6 @@ import os
 import http.server
 import socketserver
 from urllib.parse import parse_qs, urlparse
-
 need_debugging_help=True
 
 class MyRequestHandler(http.server.SimpleHTTPRequestHandler):

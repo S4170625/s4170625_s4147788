@@ -1,30 +1,40 @@
 def get_page_html(form_data):
-    page_html = """
+    # You can later dynamically generate these facts from your DB if you wish!
+    fact1 = "Fact 1"
+    fact2 = "Fact 2"
+    fact3 = "Fact 3"
+    fact4 = "Fact 4"
+
+    page_html = f"""
     <!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Mission Statement</title>
+        <title>Weather & Climate Data Portal</title>
         <style>
-            body {
+            body {{
                 font-family: Arial, sans-serif;
                 margin: 0;
                 padding: 0;
-            }
-            header {
+            }}
+            header {{
                 background: #fff;
                 padding: 10px 20px;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
                 border-bottom: 1px solid #ccc;
-            }
-            header .logo {
+            }}
+            header .logo {{
                 font-weight: bold;
                 font-size: 1.2em;
-            }
-            header nav a {
-                margin-left: 10px;
+            }}
+            nav {{
+                display: flex;
+                gap: 8px;
+            }}
+            nav a {{
+                margin-left: 0;
                 padding: 6px 14px;
                 border: 1px solid #000;
                 background: #fff;
@@ -33,123 +43,129 @@ def get_page_html(form_data):
                 border-radius: 3px;
                 font-size: 1em;
                 transition: background 0.2s;
-            }
-            header nav a:hover {
+            }}
+            nav a:hover {{
                 background: #003366;
                 color: #fff;
-            }
-            .container {
+            }}
+            .container {{
                 padding: 20px;
                 text-align: center;
-            }
-            .personas-grid {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                grid-template-rows: 1fr 1fr;
-                gap: 24px;
-                max-width: 900px;
-                margin: 30px auto 0 auto;
-            }
-            .persona {
+            }}
+            .facts-section {{
+                max-width: 600px;
+                margin: 32px auto 30px auto;
+                padding: 18px 32px;
                 background: #fafafa;
-                padding: 18px;
-                border-radius: 8px;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+                border-radius: 10px;
+                border: 1px solid #ddd;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            }}
+            .facts-section h2 {{
+                margin-bottom: 16px;
+                font-size: 1.4em;
+                text-decoration: underline;
+            }}
+            .facts-section ul {{
+                text-align: left;
+                font-size: 1.13em;
+                padding-left: 1.3em;
+                margin: 0;
+            }}
+            .facts-section li {{
+                margin-bottom: 10px;
+            }}
+            .facts-section li::marker {{
+                color: #003366;
+            }}
+            .topics-section {{
+                margin-top: 38px;
+                margin-bottom: 18px;
+            }}
+            .topics-section h3 {{
+                font-size: 1.15em;
+                margin-bottom: 8px;
+            }}
+            .topics-list {{
                 display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-            .persona img {
-                width: 120px;
-                height: 120px;
-                object-fit: cover;
-                border-radius: 50%;
-                margin-bottom: 12px;
-                background: #ccc;
-            }
-            .persona h3 {
-                margin: 8px 0 6px 0;
-            }
-            @media (max-width: 700px) {
-                .personas-grid {
-                    grid-template-columns: 1fr;
-                    grid-template-rows: repeat(4, 1fr);
-                }
-            }
-            footer {
+                justify-content: center;
+                gap: 30px;
+                margin-bottom: 24px;
+                flex-wrap: wrap;
+            }}
+            .topics-list .topic {{
+                padding: 10px 20px;
+                background: #e6eefc;
+                border-radius: 6px;
+                font-weight: bold;
+                border: 1px solid #aac3e6;
+            }}
+            footer {{
                 background: #f8f8f8;
                 padding: 30px 20px;
                 display: flex;
                 justify-content: space-between;
                 flex-wrap: wrap;
                 font-size: 0.95em;
-            }
-            footer .column {
+            }}
+            footer .column {{
                 flex: 1;
                 min-width: 180px;
                 margin: 10px;
-            }
-            footer .column h4 {
+            }}
+            footer .column h4 {{
                 margin-bottom: 10px;
-            }
-            footer .column ul {
+            }}
+            footer .column ul {{
                 list-style: none;
                 padding: 0;
-            }
-            footer .column ul li {
+            }}
+            footer .column ul li {{
                 margin-bottom: 5px;
-            }
-            footer .social-icons img {
+            }}
+            footer .social-icons img {{
                 width: 20px;
                 margin-right: 10px;
                 vertical-align: middle;
-            }
+            }}
         </style>
     </head>
     <body>
     <header>
         <div class="logo">Logo</div>
         <nav>
-            <a href="/">Mission Statement</a>
-            <a href="/page2a">Weather</a>
-            <a href="/page3a">Climate</a>
+            <a href="/">Home</a>
+            <a href="/page1b">Mission</a>
+            <a href="/page2a">Climate By Location</a>
+            <a href="/page2b">Climate By Metric</a>
+            <a href="/page3a">Similar Weather Station Sites</a>
+            <a href="/page3b">Similar Weather Station Metrics</a>
         </nav>
     </header>
 
     <div class="container">
-        <h2><strong>Mission Statement</strong></h2>
-        <p>Please add mission statement...</p>
-
-        <div class="personas-grid">
-            <div class="persona">
-                <img src="images/persona1.jpg" alt="Persona 1">
-                <h3>Persona 1</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dictum, ipsum at eleifend tristique.</p>
+        <div class="topics-section">
+            <h3>Topics covered by this website:</h3>
+            <div class="topics-list">
+                <div class="topic">Weather Data</div>
+                <div class="topic">Climate Trends</div>
+                <div class="topic">Weather Stations</div>
+                <div class="topic">Australian Regions</div>
             </div>
-            <div class="persona">
-                <img src="images/persona2.png" alt="Persona 2">
-                <h3>Persona 2</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dictum, ipsum at eleifend tristique.</p>
-            </div>
-            <div class="persona">
-                <img src="images/persona3.png" alt="Persona 3">
-                <h3>Persona 3</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dictum, ipsum at eleifend tristique.</p>
-            </div>
-            <div class="persona">
-                <img src="images/persona4.png" alt="Persona 4">
-                <h3>Persona 4</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dictum, ipsum at eleifend tristique.</p>
+            <div style="font-size:1.09em;color:#444;margin-top:12px;">
+                Explore Australia’s weather and climate history with easy-to-understand facts and interactive tools for all users.
             </div>
         </div>
 
-        <h3>Brief Description of Website</h3>
-        <p>Lorem ipsum dolor sit amet et delectus accommodare his consul copiosae legendos at vix ad putent
-            delectus delicata usu.</p>
-
-        <h3>Team Members</h3>
-        <p>Lorem ipsum dolor sit amet et delectus accommodare his consul copiosae legendos at vix ad putent
-            delectus delicata usu.</p>
+        <div class="facts-section">
+            <h2>Key Facts</h2>
+            <ul>
+                <li>{fact1}</li>
+                <li>{fact2}</li>
+                <li>{fact3}</li>
+                <li>{fact4}</li>
+            </ul>
+        </div>
     </div>
 
     <footer>
