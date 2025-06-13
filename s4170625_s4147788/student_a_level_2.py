@@ -1,3 +1,6 @@
+#This page will be used for climate data
+
+
 import pyhtml
 def get_page_html(form_data):
     print("About to return page 2")
