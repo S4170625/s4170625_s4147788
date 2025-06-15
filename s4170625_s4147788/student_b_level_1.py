@@ -126,9 +126,12 @@ def get_page_html(form_data):
 
     <div class="container">
         <h2><strong>Mission Statement</strong></h2>
-        <p>This is an example of the mission statement that we will place here later on in our website design,
-            which we will use to help others that may require the usage of our website. Here are some people
-            who have been benefitted from the usage of our webpage.</p>
+        <p>Our mission for the creation of this website, was to enable different groups of people to
+        be able to easily access climate data that they may need, as weather is one of the factors that
+        we as humans are unable to control, and can only log and predict patterns from previous trends, when 
+        other peoples livelihood maybe at stake. From those unfamiliar with basic website controls to those more
+        techonologically inclined, this website was built for the sole purpose of allowing as many people as possible
+        to freely access this data, regardless of profession.</p>
 
         <div class="personas-grid">
             <div class="persona">
