@@ -126,17 +126,21 @@ def get_page_html(form_data):
         table_rows = '<tr><td colspan="5" style="text-align:center">No data to display. Please fill the form and submit.</td></tr>'
 
     nav_bar = """
-    <header>
-        <div class="logo">Logo</div>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/page1b">Mission</a>
-            <a href="/page2a">Climate By Location</a>
-            <a href="/page2b">Climate By Metric</a>
-            <a href="/page3a">Similar Weather Station Sites</a>
-            <a href="/page3b" class="active">Similar Weather Station Metrics</a>
-        </nav>
-    </header>
+    <header style="display:flex; align-items:center; gap:20px; padding:10px;">
+    <a href="/">
+        <img src="https://cdn-icons-png.flaticon.com/512/1163/1163661.png"
+             alt="Weather Logo"
+             style="height:40px; width:auto; vertical-align:middle;">
+    </a>
+    <nav style="display:flex; gap:12px;">
+        <a href="/">Home</a>
+        <a href="/page1b">Mission</a>
+        <a href="/page2a">Climate By Location</a>
+        <a href="/page2b">Climate By Metric</a>
+        <a href="/page3a">Similar Weather Station Sites</a>
+        <a href="/page3b">Similar Weather Station Metrics</a>
+    </nav>
+</header>
     """
 
     return f"""

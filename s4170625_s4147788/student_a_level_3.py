@@ -150,17 +150,21 @@ def get_page_html(form_data):
 
     # Navigation bar HTML
     nav_bar = """
-    <header>
-        <div class="logo">Logo</div>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/page1b">Mission</a>
-            <a href="/page2a">Climate By Location</a>
-            <a href="/page2b">Climate By Metric</a>
-            <a href="/page3a" class="active">Similar Weather Station Sites</a>
-            <a href="/page3b">Similar Weather Station Metrics</a>
-        </nav>
-    </header>
+    <header style="display:flex; align-items:center; gap:20px; padding:10px;">
+    <a href="/">
+        <img src="https://cdn-icons-png.flaticon.com/512/1163/1163661.png"
+             alt="Weather Logo"
+             style="height:40px; width:auto; vertical-align:middle;">
+    </a>
+    <nav style="display:flex; gap:12px;">
+        <a href="/">Home</a>
+        <a href="/page1b">Mission</a>
+        <a href="/page2a">Climate By Location</a>
+        <a href="/page2b">Climate By Metric</a>
+        <a href="/page3a">Similar Weather Station Sites</a>
+        <a href="/page3b">Similar Weather Station Metrics</a>
+    </nav>
+</header>
     """
 
     # Main HTML structure
@@ -250,29 +254,7 @@ def get_page_html(form_data):
             .summary-title {{
                 margin-top: 36px;
                 font-size: 1.17em;
-            }}
-            footer {{
-                background: #f8f8f8;
-                padding: 30px 20px;
-                display: flex;
-                justify-content: space-between;
-                flex-wrap: wrap;
-                font-size: 0.95em;
-                border-top: 1px solid #e2e2e2;
-            }}
-            footer .column {{
-                flex: 1;
-                min-width: 180px;
-                margin: 10px;
-            }}
-            footer .column h4 {{ margin-bottom: 10px; }}
-            footer .column ul {{ list-style: none; padding: 0; }}
-            footer .column ul li {{ margin-bottom: 5px; }}
-            footer .social-icons img {{
-                width: 20px;
-                margin-right: 10px;
-                vertical-align: middle;
-            }}
+           
         </style>
     </head>
     <body>
@@ -325,33 +307,6 @@ def get_page_html(form_data):
                 {table_rows}
             </table>
         </div>
-        <footer>
-            <div class="column">
-                <h4>Logo</h4>
-                <p><strong>Address:</strong><br>123 Main Street, City<br>State Province, Country</p>
-                <div class="social-icons">
-                    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png">
-                    <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png">
-                    <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png">
-                </div>
-            </div>
-            <div class="column">
-                <ul>
-                    <li>About us</li>
-                    <li>Help</li>
-                    <li>Contact us</li>
-                    <li>Info</li>
-                </ul>
-            </div>
-            <div class="column">
-                <ul>
-                    <li>Services</li>
-                    <li>Station</li>
-                    <li>Map</li>
-                    <li>Data Download</li>
-                </ul>
-            </div>
-        </footer>
     </body>
     </html>
     """

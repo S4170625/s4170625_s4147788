@@ -45,7 +45,7 @@ def get_metric_data(metric, station_id, dt_start, dt_end):
 
 def get_summary_by_state(metric, station_id, dt_start, dt_end):
     sql = f"""
-        SELECT ws.state, SUM(cd.[{metric}])
+        SELECT ws.state, AVG(cd.[{metric}])
         FROM climate_data cd
         JOIN weather_station ws ON ws.station_id = cd.station_id
         WHERE cd.station_id = ?
@@ -150,13 +150,17 @@ def _render_page(metrics, stations, selected, daily_rows, summary_rows):
     </style>
 </head>
 <body>
-<header>
-    <div class="logo">Logo</div>
-    <nav>
+<header style="display:flex; align-items:center; gap:20px; padding:10px;">
+    <a href="/">
+        <img src="https://cdn-icons-png.flaticon.com/512/1163/1163661.png"
+             alt="Weather Logo"
+             style="height:40px; width:auto; vertical-align:middle;">
+    </a>
+    <nav style="display:flex; gap:12px;">
         <a href="/">Home</a>
         <a href="/page1b">Mission</a>
         <a href="/page2a">Climate By Location</a>
-        <a href="/page2b" class="active">Climate By Metric</a>
+        <a href="/page2b">Climate By Metric</a>
         <a href="/page3a">Similar Weather Station Sites</a>
         <a href="/page3b">Similar Weather Station Metrics</a>
     </nav>
