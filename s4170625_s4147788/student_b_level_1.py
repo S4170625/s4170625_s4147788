@@ -106,28 +106,36 @@ def get_page_html(form_data):
         we as humans are unable to control, and can only log and predict patterns from previous trends, when 
         other peoples livelihood maybe at stake. From those unfamiliar with basic website controls to those more
         techonologically inclined, this website was built for the sole purpose of allowing as many people as possible
-        to freely access this data, regardless of profession.</p>
+        to freely access this data, regardless of profession. Below are comments from just a small percentage of our
+        users, letting you know more about our humble website.</p>
 
         <div class="personas-grid">
             <div class="persona">
-                <img src="images/persona1.jpg" alt="Persona 1">
-                <h3>Persona 1</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dictum, ipsum at eleifend tristique.</p>
+                <img src="images/persona1.jpg">
+                <h3>Marge Smith</h3>
+                <p>"I normally feel like most websites are too complicated to use, but with this one,
+                I can check the weather in my area so easily. Thank you so much!"</p>
             </div>
             <div class="persona">
-                <img src="images/persona2.jpg" alt="Persona 2">
-                <h3>Persona 2</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dictum, ipsum at eleifend tristique.</p>
+                <img src="images/persona2.jpg">
+                <h3>Bob Mann</h3>
+                <p>"As an avid climate activist, I feel that this website really provides me with the
+                information that I need in order to include in my pamphlets. This is a really underrated
+                website, so if you're here, show your support to them!"</p>
             </div>
             <div class="persona">
-                <img src="images/persona3.jpg" alt="Persona 3">
-                <h3>Persona 3</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dictum, ipsum at eleifend tristique.</p>
+                <img src=images/persona3.jpg>
+                <h3>Serene Chan</h3>
+                <p>"Although I had my doubts about this website at first, I was pleasantly surprised to find
+                that they data that is provided here is really quite on par with other top sites. I will be coming
+                back to use this website again. Highly recommend it."</p>
             </div>
             <div class="persona">
-                <img src="images/persona4.jpg" alt="Persona 4">
-                <h3>Persona 4</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dictum, ipsum at eleifend tristique.</p>
+                <img src="images/persona4.jpg">
+                <h3>Robert Tan</h3>
+                <p>"I'm no weather expert, but I feel that this website has really help me to become one
+                in a way! I don't think any other weather website is quite as reliable as this one, and
+                this one has helped me to avoid many potential workplace hazards."</p>
             </div>
         </div>
     </div>
