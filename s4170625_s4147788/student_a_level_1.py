@@ -1,18 +1,25 @@
-import pandas as pd
 import os
+import csv
 
 def get_page_html(form_data):
-    #path for fricken description cause IT KEEPS GETTING LOST AND MAKING ME GO MENTAL 
+    # Get the path for FRICKEN DESCRIPTION.CSV ;-;
     desc_csv_path = os.path.join(os.path.dirname(__file__), "description.csv")
-    desc_df = pd.read_csv(desc_csv_path)
-    attributes_list = [f"{row['Field']}: {row['Description']}" for _, row in desc_df.iterrows()]
+    
+    attributes_list = []
+    
+    with open(desc_csv_path, mode='r', encoding='utf-8') as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            
+            attributes_list.append(f"{row['Field']}: {row['Description']}")
 
-    #FACTS :3
+    # FACTS :3
     fact1 = "Available year range: 1910 to 2023"
     fact2 = "Lowest recorded temperature: -15.6°C at Charlotte Pass"
     fact3 = "Highest recorded rainfall: 894mm at Tully Sugar Mill"
     fact4 = "Region with most weather stations: Western District (21 stations)"
-    #HTML mumbojumbo :P 
+    
+    # HTML mumbojumbo :P 
     page_html = f"""
     <!DOCTYPE html>
     <html lang="en">
