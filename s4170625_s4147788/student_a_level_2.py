@@ -4,15 +4,15 @@ import os
 DB_PATH = os.path.join(os.path.dirname(__file__), "database", "climate.db")
 
 def get_states():
-    """Get all unique states from the weather_station table."""
+    #Geting unique states from weather_station table :3
     with sqlite3.connect(DB_PATH) as conn:
         cur = conn.cursor()
         cur.execute("SELECT DISTINCT state FROM weather_station ORDER BY state;")
         return [row[0] for row in cur.fetchall()]
 
 def get_metrics():
-    """These are the column names for climate_data that users can select as metrics."""
-    # You can customize this if you want to allow/disallow any columns
+    #These are the column names for climate_data that users can select for metrics 
+   
     return [
         {"id": "max_temp", "name": "Max Temperature"},
         {"id": "min_temp", "name": "Min Temperature"},
@@ -38,7 +38,7 @@ def get_station_data(state, lat_start, lat_end):
 def get_summary_data(state, lat_start, lat_end, metric):
     with sqlite3.connect(DB_PATH) as conn:
         cur = conn.cursor()
-        # For each region, get number of stations and average of the selected metric
+        # Getting no. of stations in the selected region and getting tghe average for the selected metric 
         cur.execute(f"""
             SELECT ws.region, COUNT(ws.station_id), AVG(cd.[{metric}])
             FROM weather_station ws
@@ -113,7 +113,7 @@ def get_level2_page_html(form_data, states, metrics, stations_data, summary_data
         )
     else:
         table2_rows = '<tr><td colspan="3" style="text-align:center">No summary data.</td></tr>'
-
+#this is the nav bar hope this helps :P 
     nav_bar = """
     <header>
         <div class="logo">Logo</div>
@@ -127,6 +127,7 @@ def get_level2_page_html(form_data, states, metrics, stations_data, summary_data
         </nav>
     </header>
     """
+    # The rest of my sprawling HTML mumbojumbo
     return f"""
     <!DOCTYPE html>
     <html lang="en">
@@ -267,8 +268,8 @@ def get_level2_page_html(form_data, states, metrics, stations_data, summary_data
             <h3>Table 1: Weather Station Details</h3>
             <table>
                 <tr>
-                    <th>Site</th>
-                    <th>Name</th>
+                    <th>Station no.</th>
+                    <th>Station Name</th>
                     <th>Region</th>
                     <th>Latitude</th>
                 </tr>
@@ -289,7 +290,8 @@ def get_level2_page_html(form_data, states, metrics, stations_data, summary_data
                 <h4>Logo</h4>
                 <p><strong>Address:</strong><br>123 Main Street, City<br>State Province, Country</p>
                 <div class="social-icons">
-                    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png">
+
+                    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png"> #easier to call them from the web than it is to call them from the local machine also they wont link to anything cause I cant be bothered...
                     <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png">
                     <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png">
                 </div>

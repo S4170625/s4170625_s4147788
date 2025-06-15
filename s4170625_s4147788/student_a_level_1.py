@@ -1,5 +1,5 @@
 def get_page_html(form_data):
-    # You can later dynamically generate these facts from your DB if you wish!
+
     fact1 = "Fact 1"
     fact2 = "Fact 2"
     fact3 = "Fact 3"
