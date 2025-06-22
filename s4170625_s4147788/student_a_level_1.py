@@ -74,7 +74,7 @@ def get_page_html(form_data):
                 <div class="topic">Weather Districts</div>
             </div>
             <div style="font-size:1.09em;color:#444;margin-top:12px;">
-                Explore Australia’s weather and climate history with easy-to-understand facts and interactive tools for all users.
+                Explore Australias weather and climate history with facts and easy-to-understand interactive tools for all users.
             </div>
         </div>
         <div class="facts-section">
