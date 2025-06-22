@@ -5,17 +5,22 @@ import os
 DB_PATH = os.path.join(os.path.dirname(__file__), "database", "climate.db")
 
 def get_metrics():
-    # List of available weather data types the user can pick
-    return [
-        {"id": "max_temp", "name": "Max Temperature"},
-        {"id": "min_temp", "name": "Min Temperature"},
-        {"id": "precipitation", "name": "Precipitation"},
-        {"id": "evaporation", "name": "Evaporation"},
-        {"id": "sunshine", "name": "Sunshine"},
-    ]
+    with sqlite3.connect(DB_PATH) as conn:
+        cur = conn.cursor()
+        # Get all columns in climate_data 
+        cur.execute("PRAGMA table_info(climate_data);")
+        cols = cur.fetchall()
+        metrics = []
+        for col in cols:
+            col_name = col[1]
+            # Doesn't include stuff we dont need ID/date columns
+            if col_name not in ("station_id", "date"):
+                display = col_name.replace("_", " ").title()
+                metrics.append({"id": col_name, "name": display})
+        return metrics
 
 def get_all_stations():
-    # Gets all weather station IDs and names, ordered alphabetically for the dropdown
+    # Gets all wewther station IDs and names alphabetical ordering 
     with sqlite3.connect(DB_PATH) as conn:
         cur = conn.cursor()
         cur.execute("SELECT station_id, name FROM weather_station ORDER BY name;")
