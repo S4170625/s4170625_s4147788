@@ -4,15 +4,17 @@ import os
 DB_PATH = os.path.join(os.path.dirname(__file__), "database", "climate.db")
 
 def get_metrics():
-    return [
-        {"id": "precipitation", "name": "Precipitation"},
-        {"id": "evaporation", "name": "Evaporation"},
-        {"id": "max_temp", "name": "Max Temperature"},
-        {"id": "min_temp", "name": "Min Temperature"},
-        {"id": "sunshine", "name": "Sunshine"},
-        {"id": "cloud_cover", "name": "Cloud Cover"},
-        {"id": "avg_temp", "name": "Average Temp"},
-    ]
+    with sqlite3.connect(DB_PATH) as conn:
+        cur = conn.cursor()
+        cur.execute("PRAGMA table_info(climate_data);")
+        cols = cur.fetchall()
+        metrics = []
+        for col in cols:
+            col_name = col[1]
+            if col_name not in ("station_id", "date"):
+                display = col_name.replace("_", " ").title()
+                metrics.append({"id": col_name, "name": display})
+        return metrics
 
 def get_all_stations():
     with sqlite3.connect(DB_PATH) as conn:
@@ -159,17 +161,14 @@ def get_page_html(form_data):
                 align-items: center;
                 border-bottom: 1px solid #ccc;
             }}
-            header .logo {{ font-weight: bold; font-size: 1.2em; }}
             nav {{ display: flex; gap: 8px; }}
             nav a {{
-                margin-left: 0;
                 padding: 6px 14px;
                 border: 1px solid #000;
                 background: #fff;
                 color: #222;
                 text-decoration: none;
                 border-radius: 3px;
-                font-size: 1em;
                 transition: background 0.2s;
             }}
             nav a.active, nav a:hover {{
