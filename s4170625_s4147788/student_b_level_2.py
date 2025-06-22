@@ -1,12 +1,12 @@
 import sqlite3
 import os
 import html
-
+ 
 DB_PATH = os.path.join(os.path.dirname(__file__), "database", "climate.db")
-
+ 
 def get_first(val, default=""):
     return val[0] if isinstance(val, list) and val else (val or default)
-
+ 
 def get_metrics():
     with sqlite3.connect(DB_PATH) as conn:
         cur = conn.cursor()
@@ -14,29 +14,32 @@ def get_metrics():
         cols = cur.fetchall()
         return [{"id": col[1], "name": col[1].replace("_", " ").title()}
                 for col in cols if col[1] not in ("station_id", "date")]
-
+ 
 def get_all_stations():
     with sqlite3.connect(DB_PATH) as conn:
         cur = conn.cursor()
         cur.execute("SELECT station_id, name FROM weather_station ORDER BY name;")
         return [{"id": str(row[0]), "name": row[1]} for row in cur.fetchall()]
-
+ 
+T1_ALLOWED = {"station_id", "date", "value", "state", "region"}
+T2_ALLOWED = {"state", "total"}
+ 
 def get_sort_link(form_data, table, col):
     sort_by = f"{table}_sort_by"
     sort_order = f"{table}_sort_order"
-    cur_by = form_data.get(sort_by, "")
-    cur_order = form_data.get(sort_order, "asc")
+    cur_by = get_first(form_data.get(sort_by, ""))
+    cur_order = get_first(form_data.get(sort_order, "asc"))
     new_order = "desc" if cur_by == col and cur_order == "asc" else "asc"
     params = []
     for k, v in form_data.items():
         if k not in [sort_by, sort_order]:
-            params.append(f"{html.escape(k)}={html.escape(str(v))}")
+            actual_val = get_first(v)
+            params.append(f"{html.escape(k)}={html.escape(str(actual_val))}")
     params += [f"{sort_by}={col}", f"{sort_order}={new_order}"]
     return f"?{'&'.join(params)}"
-
+ 
 def get_metric_data(metric, station_id, start, end, sort_by, sort_order):
-    allowed = ["station_id", "date", "value", "state", "region"]
-    col = sort_by if sort_by in allowed else "date"
+    col = sort_by if sort_by in T1_ALLOWED else "date"
     order = "DESC" if sort_order == "desc" else "ASC"
     sql = f"""
         SELECT cd.station_id, cd.date, cd.[{metric}] AS value, ws.state, ws.region
@@ -52,9 +55,9 @@ def get_metric_data(metric, station_id, start, end, sort_by, sort_order):
             {"station_id": r[0], "date": r[1], "value": r[2], "state": r[3], "region": r[4]}
             for r in cur.fetchall()
         ]
-
+ 
 def get_summary_data(metric, station_id, start, end, sort_by, sort_order):
-    col = "state" if sort_by not in ["state", "total"] else sort_by
+    col = sort_by if sort_by in T2_ALLOWED else "state"
     order = "DESC" if sort_order == "desc" else "ASC"
     sql = f"""
         SELECT ws.state, AVG(cd.[{metric}]) AS total
@@ -71,11 +74,11 @@ def get_summary_data(metric, station_id, start, end, sort_by, sort_order):
             {"state": r[0], "total": f"{r[1]:.1f}" if r[1] is not None else "N/A"}
             for r in cur.fetchall()
         ]
-
+ 
 def get_page_html(form_data):
     metrics = get_metrics()
     stations = get_all_stations()
-
+ 
     metric = get_first(form_data.get("metric"))
     station_id = get_first(form_data.get("station_id"))
     dt_start = get_first(form_data.get("dt_start"))
@@ -84,7 +87,7 @@ def get_page_html(form_data):
     t1_sort_order = get_first(form_data.get("t1_sort_order", "asc"))
     t2_sort_by = get_first(form_data.get("t2_sort_by", "state"))
     t2_sort_order = get_first(form_data.get("t2_sort_order", "asc"))
-
+ 
     metric_options = "".join(
         f'<option value="{m["id"]}" {"selected" if metric == m["id"] else ""}>{m["name"]}</option>'
         for m in metrics
@@ -93,29 +96,29 @@ def get_page_html(form_data):
         f'<option value="{s["id"]}" {"selected" if station_id == s["id"] else ""}>{s["name"]}</option>'
         for s in stations
     )
-
+ 
     daily_rows = []
     summary_rows = []
-
+ 
     if metric and station_id and dt_start and dt_end:
         daily_rows = get_metric_data(metric, station_id, dt_start, dt_end, t1_sort_by, t1_sort_order)
         summary_rows = get_summary_data(metric, station_id, dt_start, dt_end, t2_sort_by, t2_sort_order)
-
+ 
     metric_name = next((m["name"] for m in metrics if m["id"] == metric), "Metric")
-
+ 
     def arrow(active, order):
         return " ▲" if active and order == "asc" else (" ▼" if active and order == "desc" else "")
-
+ 
     t1_rows = "\n".join(
         f"<tr><td>{r['station_id']}</td><td>{r['date']}</td><td>{r['value']}</td><td>{r['state']}</td><td>{r['region']}</td></tr>"
         for r in daily_rows
     ) if daily_rows else '<tr><td colspan="5" style="text-align:center">No data available.</td></tr>'
-
+ 
     t2_rows = "\n".join(
         f"<tr><td>{r['state']}</td><td>{r['total']}</td></tr>"
         for r in summary_rows
     ) if summary_rows else '<tr><td colspan="2" style="text-align:center">No summary available.</td></tr>'
-
+ 
     return f"""
 <!DOCTYPE html>
 <html lang="en">
@@ -191,7 +194,7 @@ def get_page_html(form_data):
         <a href="/page3b">Similar Weather Station Metrics</a>
     </nav>
 </header>
-
+ 
 <div class="container">
     <h2 style="text-align:center; color:#003366;">Focused View of Climate Change by Climate Metric</h2>
     <div class="form-section">
@@ -228,7 +231,7 @@ def get_page_html(form_data):
             </div>
         </form>
     </div>
-
+ 
     <h3>Table 1: Daily {metric_name} Values</h3>
     <table>
         <tr>
@@ -240,7 +243,7 @@ def get_page_html(form_data):
         </tr>
         {t1_rows}
     </table>
-
+ 
     <h3>Table 2: State-Level Total {metric_name}</h3>
     <table>
         <tr>
